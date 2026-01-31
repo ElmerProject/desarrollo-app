@@ -149,7 +149,7 @@ const ContentRenderer = (function() {
         let html = `
             <div class="mb-8 text-center">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Análisis del Examen 📊</h2>
-                <p class="text-gray-600">Estrategia basada en patrones de exámenes anteriores</p>
+                <p class="text-gray-600">Análisis completo de 12 exámenes (2022-2025) - 360 preguntas</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6 mb-8">
@@ -165,11 +165,77 @@ const ContentRenderer = (function() {
                 </div>
                 <div class="bg-purple-50 rounded-2xl p-6 text-center">
                     <p class="text-sm text-purple-600 font-bold uppercase mb-1">Fuente</p>
-                    <p class="text-lg font-bold text-gray-900 mt-2">${data.info.note}</p>
+                    <p class="text-sm font-bold text-gray-900 mt-2">${data.info.note}</p>
+                </div>
+            </div>
+
+            <!-- Distribución por temas -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">📈 Distribución de Preguntas por Tema</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    ${Object.entries(data.distribution || {}).map(([key, value]) => `
+                        <div class="flex items-center justify-between p-3 rounded-lg ${value.priority === 'CRÍTICO' ? 'bg-red-50 border border-red-100' : value.priority === 'ALTO' ? 'bg-orange-50 border border-orange-100' : value.priority === 'MEDIO' ? 'bg-yellow-50 border border-yellow-100' : 'bg-gray-50'}">
+                            <div>
+                                <p class="font-semibold text-gray-900">${key.charAt(0).toUpperCase() + key.slice(1)}</p>
+                                <p class="text-xs text-gray-500">Cap: ${value.chapters}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${value.priority === 'CRÍTICO' ? 'bg-red-100 text-red-800' : value.priority === 'ALTO' ? 'bg-orange-100 text-orange-800' : 'bg-gray-100 text-gray-800'}">
+                                    ${value.priority}
+                                </span>
+                                <p class="text-sm font-bold text-gray-700 mt-1">${value.percentage} (${value.questions})</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Clusters de estudio -->
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">🎯 Clusters de Estudio (Integración)</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    ${(data.clusters || []).map(cluster => `
+                        <div class="bg-white rounded-xl p-4 shadow-sm">
+                            <p class="font-bold text-indigo-700">${cluster.name}</p>
+                            <p class="text-2xl font-bold text-gray-900">${cluster.percentage}</p>
+                            <p class="text-xs text-gray-500 mb-2">${cluster.chapters}</p>
+                            <p class="text-sm text-gray-600">${cluster.description}</p>
+                            <p class="text-xs text-indigo-600 mt-2 italic">"${cluster.key}"</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Trampas comunes -->
+            <div class="bg-red-50 rounded-2xl p-6 mb-8 border border-red-100">
+                <h3 class="text-xl font-bold text-red-800 mb-4">⚠️ Trampas Comunes en el Examen</h3>
+                <div class="space-y-3">
+                    ${(data.traps || []).map(trap => `
+                        <div class="bg-white rounded-lg p-3">
+                            <p class="font-semibold text-red-700">${trap.trap}</p>
+                            <p class="text-sm text-gray-600">${trap.explanation}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Asociaciones rápidas -->
+            <div class="bg-yellow-50 rounded-2xl p-6 mb-8 border border-yellow-100">
+                <h3 class="text-xl font-bold text-yellow-800 mb-4">🔗 Asociaciones Rápidas: Autor → Concepto</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    ${(data.quickAssociations || []).map(item => `
+                        <div class="bg-white rounded-lg p-3 flex items-center justify-between">
+                            <span class="font-bold text-gray-900">${item.author}</span>
+                            <span class="text-sm text-gray-600 text-right">${item.association}</span>
+                        </div>
+                    `).join('')}
                 </div>
             </div>
             
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="font-bold text-gray-900">📋 Temas Detallados por Prioridad</h3>
+                </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead class="bg-gray-50 text-gray-600 text-xs uppercase font-semibold">
@@ -296,8 +362,8 @@ const ContentRenderer = (function() {
         
         let html = `
             <div class="mb-8 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Glosario "Salva-Exámenes" 📖</h2>
-                <p class="text-gray-600">Definiciones clave directas al grano</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Glosario Completo 📖</h2>
+                <p class="text-gray-600">${GLOSSARY_DATA.length} términos esenciales para el examen</p>
             </div>
             
             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

@@ -8,7 +8,7 @@
  * Permite funcionamiento offline completo
  */
 
-const CACHE_NAME = 'bursucpro-v7';
+const CACHE_NAME = 'bursucpro-v8';
 const STATIC_CACHE = 'bursucpro-static-v7';
 const DYNAMIC_CACHE = 'bursucpro-dynamic-v7';
 
