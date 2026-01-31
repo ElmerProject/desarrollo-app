@@ -8,9 +8,9 @@
  * Permite funcionamiento offline completo
  */
 
-const CACHE_NAME = 'bursucpro-v2';
-const STATIC_CACHE = 'bursucpro-static-v2';
-const DYNAMIC_CACHE = 'bursucpro-dynamic-v2';
+const CACHE_NAME = 'bursucpro-v3';
+const STATIC_CACHE = 'bursucpro-static-v3';
+const DYNAMIC_CACHE = 'bursucpro-dynamic-v3';
 
 // Recursos estáticos para precachear
 const STATIC_ASSETS = [
@@ -119,11 +119,11 @@ self.addEventListener('fetch', (event) => {
 async function cacheFirst(request) {
     const cache = await caches.open(STATIC_CACHE);
     const cached = await cache.match(request);
-    
+
     if (cached) {
         return cached;
     }
-    
+
     try {
         const response = await fetch(request);
         if (response.ok) {
@@ -132,8 +132,8 @@ async function cacheFirst(request) {
         return response;
     } catch (error) {
         console.error('[SW] Error en cacheFirst:', error);
-        // Devolver página offline si existe
-        return caches.match('/offline.html');
+        // Return network fetch as fallback (let browser handle errors)
+        return fetch(request);
     }
 }
 
@@ -143,23 +143,24 @@ async function cacheFirst(request) {
 async function networkFirst(request) {
     try {
         const networkResponse = await fetch(request);
-        
+
         if (networkResponse.ok) {
             const cache = await caches.open(DYNAMIC_CACHE);
             cache.put(request, networkResponse.clone());
         }
-        
+
         return networkResponse;
     } catch (error) {
         console.log('[SW] Fallo de red, usando cache:', request.url);
         const cache = await caches.open(DYNAMIC_CACHE);
         const cached = await cache.match(request);
-        
+
         if (cached) {
             return cached;
         }
-        
-        throw error;
+
+        // Return a proper error response instead of throwing
+        return new Response('Network error', { status: 503, statusText: 'Service Unavailable' });
     }
 }
 
@@ -170,7 +171,7 @@ async function networkFirst(request) {
 async function staleWhileRevalidate(request) {
     const cache = await caches.open(DYNAMIC_CACHE);
     const cached = await cache.match(request);
-    
+
     // Actualizar en background
     const fetchPromise = fetch(request)
         .then((networkResponse) => {
@@ -180,11 +181,19 @@ async function staleWhileRevalidate(request) {
             return networkResponse;
         })
         .catch((error) => {
-            console.log('[SW] Fetch fallido, usando cache:', error);
+            console.log('[SW] Fetch fallido:', error);
+            // Return cached version if available, otherwise re-throw
+            if (cached) return cached;
+            throw error;
         });
-    
-    // Devolver cache inmediatamente o esperar fetch
-    return cached || fetchPromise;
+
+    // Return cache immediately if available, otherwise wait for fetch
+    if (cached) {
+        // Trigger background update but return cached immediately
+        fetchPromise.catch(() => {}); // Suppress unhandled rejection
+        return cached;
+    }
+    return fetchPromise;
 }
 
 // ============================================
