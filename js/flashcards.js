@@ -528,11 +528,26 @@ const Flashcards = (function() {
             progress.style.width = `${percent}%`;
         }
         
-        // Actualizar dashboard
+        // Actualizar dashboard - show today's studied cards
         const dashCards = document.getElementById('dash-cards');
         if (dashCards) {
             const stats = ProgressManager.getStats();
-            dashCards.textContent = `${stats.masteredCards}/${stats.totalCards}`;
+            dashCards.textContent = `${stats.todayCards || 0}`;
+        }
+
+        // Update sidebar progress bar
+        updateSidebarProgress();
+    }
+
+    function updateSidebarProgress() {
+        const stats = ProgressManager.getStats();
+        const progressBar = document.getElementById('progress-bar');
+        const totalProgress = document.getElementById('total-progress');
+
+        if (progressBar && totalProgress) {
+            const progress = stats.progressPercent || 0;
+            progressBar.style.width = `${progress}%`;
+            totalProgress.textContent = `${progress}%`;
         }
     }
     

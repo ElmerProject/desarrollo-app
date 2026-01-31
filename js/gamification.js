@@ -413,23 +413,39 @@ const Gamification = (function() {
         const navLevel = document.getElementById('nav-level');
         const navPoints = document.getElementById('nav-points');
         const navStreak = document.getElementById('nav-streak');
-        
+
         if (navLevel) navLevel.textContent = user.level;
         if (navPoints) navPoints.textContent = user.points;
         if (navStreak) navStreak.textContent = currentStreak;
-        
+
         // Actualizar dashboard
         const dashLevel = document.getElementById('dash-level');
         const dashPoints = document.getElementById('dash-points');
         const dashStreak = document.getElementById('dash-streak');
-        
+        const dashCards = document.getElementById('dash-cards');
+
         if (dashLevel) {
             dashLevel.textContent = user.level;
             const levelInfo = getLevelInfo(user.level);
-            dashLevel.nextElementSibling.textContent = levelInfo.name;
+            if (dashLevel.nextElementSibling) {
+                dashLevel.nextElementSibling.textContent = levelInfo.name;
+            }
         }
         if (dashPoints) dashPoints.textContent = user.points;
         if (dashStreak) dashStreak.textContent = currentStreak;
+
+        // Update today's cards and progress bar
+        const stats = ProgressManager.getStats();
+        if (dashCards) dashCards.textContent = `${stats.todayCards || 0}`;
+
+        // Update sidebar progress bar
+        const progressBar = document.getElementById('progress-bar');
+        const totalProgress = document.getElementById('total-progress');
+        if (progressBar && totalProgress) {
+            const progress = stats.progressPercent || 0;
+            progressBar.style.width = `${progress}%`;
+            totalProgress.textContent = `${progress}%`;
+        }
     }
     
     function updateStreakUI() {

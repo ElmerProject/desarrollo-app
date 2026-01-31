@@ -280,7 +280,7 @@ const App = (function() {
         }
         if (dashPoints) dashPoints.textContent = data.user.points;
         if (dashStreak) dashStreak.textContent = data.user.streak;
-        if (dashCards) dashCards.textContent = `${stats.masteredCards}/${stats.totalCards}`;
+        if (dashCards) dashCards.textContent = `${stats.todayCards || 0}`;
         
         // Actualizar barra de progreso
         const progressBar = document.getElementById('progress-bar');
