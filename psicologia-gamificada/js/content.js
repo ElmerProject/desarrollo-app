@@ -1,7 +1,7 @@
 /**
  * ============================================
  * CONTENT.JS - Renderizado de contenido estático
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Se encarga de renderizar las secciones informativas

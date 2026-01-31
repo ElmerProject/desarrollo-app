@@ -1,6 +1,6 @@
 /**
  * ============================================
- * SERVICE WORKER - Simo Pro PWA
+ * SERVICE WORKER - Bursuc Pro PWA
  * Psicología del Desarrollo II
  * ============================================
  * 
@@ -8,9 +8,9 @@
  * Permite funcionamiento offline completo
  */
 
-const CACHE_NAME = 'simopro-v1';
-const STATIC_CACHE = 'simopro-static-v1';
-const DYNAMIC_CACHE = 'simopro-dynamic-v1';
+const CACHE_NAME = 'bursucpro-v1';
+const STATIC_CACHE = 'bursucpro-static-v1';
+const DYNAMIC_CACHE = 'bursucpro-dynamic-v1';
 
 // Recursos estáticos para precachear
 const STATIC_ASSETS = [
@@ -252,7 +252,7 @@ self.addEventListener('push', (event) => {
         
         event.waitUntil(
             self.registration.showNotification(
-                data.title || 'Simo Pro',
+                data.title || 'Bursuc Pro',
                 options
             )
         );

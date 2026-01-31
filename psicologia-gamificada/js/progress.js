@@ -1,7 +1,7 @@
 /**
  * ============================================
  * PROGRESS.JS - Persistencia con localStorage
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Gestiona el guardado y carga de todo el progreso del usuario.
@@ -15,7 +15,7 @@ const ProgressManager = (function() {
     // CONFIGURACIÓN
     // ============================================
     
-    const STORAGE_KEY = 'simopro_progress';
+    const STORAGE_KEY = 'bursucpro_progress';
     const VERSION = '1.0.0';
     
     // ============================================
@@ -25,7 +25,7 @@ const ProgressManager = (function() {
     const defaultData = {
         version: VERSION,
         user: {
-            name: 'Simo',
+            name: 'Bursuc',
             level: 1,
             points: 0,
             totalPoints: 0,

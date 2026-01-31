@@ -1,7 +1,7 @@
 /**
  * ============================================
  * APP.JS - Aplicación principal
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Punto de entrada de la aplicación.
@@ -16,7 +16,7 @@ const App = (function() {
     // ============================================
     
     const CONFIG = {
-        appName: 'Simo Pro',
+        appName: 'Bursuc Pro',
         version: '1.0.0',
         debug: true
     };
@@ -236,14 +236,14 @@ const App = (function() {
     }
     
     function checkFirstVisit() {
-        const hasVisited = localStorage.getItem('simopro_visited');
+        const hasVisited = localStorage.getItem('bursucpro_visited');
         
         if (!hasVisited) {
-            localStorage.setItem('simopro_visited', 'true');
+            localStorage.setItem('bursucpro_visited', 'true');
             
             // Mostrar tutorial o mensaje de bienvenida especial
             setTimeout(() => {
-                UI.showToast('¡Bienvenido a Simo Pro! Comienza estudiando en Flashcards 🎴', 'info', 5000);
+                UI.showToast('¡Bienvenido a Bursuc Pro! Comienza estudiando en Flashcards 🎴', 'info', 5000);
             }, 1000);
         }
     }
@@ -313,7 +313,7 @@ const App = (function() {
         else if (hour < 18) greeting = '¡Buenas tardes';
         else greeting = '¡Buenas noches';
         
-        const name = state.currentUser?.name || 'Simo';
+        const name = state.currentUser?.name || 'Bursuc';
         
         setTimeout(() => {
             UI.showToast(`${greeting}, ${name}! 👋`, 'info', 3000);
@@ -368,7 +368,7 @@ const App = (function() {
         
         const a = document.createElement('a');
         a.href = url;
-        a.download = `simopro-backup-${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `bursucpro-backup-${new Date().toISOString().split('T')[0]}.json`;
         a.click();
         
         URL.revokeObjectURL(url);
@@ -418,7 +418,7 @@ const App = (function() {
     
     // Exponer debug globalmente en modo desarrollo
     if (CONFIG.debug) {
-        window.simoproDebug = debug;
+        window.bursucproDebug = debug;
     }
     
     // ============================================

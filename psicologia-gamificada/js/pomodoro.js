@@ -1,7 +1,7 @@
 /**
  * ============================================
  * POMODORO.JS - Timer Pomodoro integrado
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Características:
@@ -244,7 +244,7 @@ const Pomodoro = (function() {
         
         // Actualizar título de la página
         if (state.isRunning) {
-            document.title = `${timeString} - ${MODES[state.mode].name} | Simo Pro`;
+            document.title = `${timeString} - ${MODES[state.mode].name} | Bursuc Pro`;
         }
     }
     

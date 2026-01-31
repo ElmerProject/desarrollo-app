@@ -1,7 +1,7 @@
 /**
  * ============================================
  * DATA.JS - Datos de la aplicación
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Contiene:

@@ -1,4 +1,4 @@
-# 🎓 Simo Pro - Psicología del Desarrollo II
+# 🎓 Bursuc Pro - Psicología del Desarrollo II
 
 Aplicación web educativa gamificada para preparar exámenes de Psicología del Desarrollo II. Diseñada especialmente para estudiantes con TDAH, con enfoque en microaprendizaje, recompensas inmediatas y técnicas de concentración.
 
@@ -255,4 +255,4 @@ MIT License - Libre para uso personal y educativo.
 
 ---
 
-**¡Éxito en tu examen, Simo!** 📚✨
+**¡Éxito en tu examen, Bursuc!** 📚✨

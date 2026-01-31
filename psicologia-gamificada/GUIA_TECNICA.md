@@ -1,5 +1,5 @@
 # 📘 GUÍA TÉCNICA COMPLETA
-## Psicología del Desarrollo II - Simo Pro
+## Psicología del Desarrollo II - Bursuc Pro
 
 ---
 
@@ -200,7 +200,7 @@ const App = (function() {
 {
     version: '1.0.0',
     user: {
-        name: 'Simo',
+        name: 'Bursuc',
         level: 1,
         points: 0,
         streak: 0
@@ -232,7 +232,7 @@ const App = (function() {
 
 ```javascript
 const user = {
-    name: 'Simo',
+    name: 'Bursuc',
     level: 1,
     points: 0,           // Puntos disponibles
     totalPoints: 0,      // Puntos totales acumulados
@@ -456,7 +456,7 @@ const dataToSave = {
 ### Funciones de Guardar/Cargar
 
 ```javascript
-const STORAGE_KEY = 'simopro_progress';
+const STORAGE_KEY = 'bursucpro_progress';
 
 function save() {
     try {
@@ -503,8 +503,8 @@ function migrateData(oldData) {
 
 ```json
 {
-  "name": "Simo Pro",
-  "short_name": "Simo Pro",
+  "name": "Bursuc Pro",
+  "short_name": "Bursuc Pro",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#6366f1",
@@ -519,7 +519,7 @@ function migrateData(oldData) {
 ### Service Worker Básico
 
 ```javascript
-const CACHE_NAME = 'simopro-v1';
+const CACHE_NAME = 'bursucpro-v1';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
