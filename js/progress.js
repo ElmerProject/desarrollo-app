@@ -444,23 +444,28 @@ const ProgressManager = (function() {
     }
     
     function mergeWithDefaults(savedData) {
-        // Deep merge recursivo
-        function merge(target, source) {
-            for (const key in source) {
-                if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
-                    if (!target[key]) target[key] = {};
-                    merge(target[key], source[key]);
-                } else {
-                    if (target[key] === undefined) {
-                        target[key] = source[key];
+        // Deep merge: savedData values override defaults, but defaults fill missing keys
+        function merge(defaults, saved) {
+            const result = { ...defaults };
+
+            for (const key in saved) {
+                if (saved[key] !== null && saved[key] !== undefined) {
+                    if (typeof saved[key] === 'object' && !Array.isArray(saved[key]) &&
+                        typeof defaults[key] === 'object' && !Array.isArray(defaults[key])) {
+                        // Recursively merge objects
+                        result[key] = merge(defaults[key] || {}, saved[key]);
+                    } else {
+                        // Use saved value (including arrays)
+                        result[key] = saved[key];
                     }
                 }
             }
-            return target;
+
+            return result;
         }
-        
-        const merged = JSON.parse(JSON.stringify(defaultData));
-        return merge(merged, savedData);
+
+        const defaults = JSON.parse(JSON.stringify(defaultData));
+        return merge(defaults, savedData);
     }
     
     // ============================================
