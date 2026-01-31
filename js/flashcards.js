@@ -100,32 +100,45 @@ const Flashcards = (function() {
     function applyFilters() {
         const statusFilter = document.getElementById('flashcard-filter')?.value || 'all';
         const categoryFilter = document.getElementById('flashcard-category')?.value || 'all';
-        
+
         const cardStatuses = ProgressManager.getAllFlashcards();
-        
+
         filteredCards = FLASHCARDS_DATA.filter(card => {
-            const status = cardStatuses.find(s => s.id === card.id)?.status || 'new';
-            
-            // Filtro por estado
-            if (statusFilter !== 'all' && status !== statusFilter) {
-                return false;
-            }
-            
-            // Filtro por categoría
+            const cardStatus = cardStatuses.find(s => s.id === card.id);
+            const status = cardStatus?.status || 'new';
+
+            // Filtro por categoría (applies to all modes)
             if (categoryFilter !== 'all' && card.category !== categoryFilter) {
                 return false;
             }
-            
-            // Verificar si está disponible para revisión hoy
-            const cardStatus = cardStatuses.find(s => s.id === card.id);
-            if (cardStatus?.nextReview) {
-                const nextReview = new Date(cardStatus.nextReview);
-                if (nextReview > new Date()) {
+
+            // Handle different filter modes
+            if (statusFilter === 'all') {
+                // Show ALL cards regardless of status or schedule
+                return true;
+            } else if (statusFilter === 'due') {
+                // Show only cards due for review today (spaced repetition)
+                if (cardStatus?.nextReview) {
+                    const nextReview = new Date(cardStatus.nextReview);
+                    if (nextReview > new Date()) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                // Filter by specific status (new, learning, review, mastered)
+                if (status !== statusFilter) {
                     return false;
                 }
+                // Also apply spaced repetition for status filters
+                if (cardStatus?.nextReview) {
+                    const nextReview = new Date(cardStatus.nextReview);
+                    if (nextReview > new Date()) {
+                        return false;
+                    }
+                }
+                return true;
             }
-            
-            return true;
         });
     }
     

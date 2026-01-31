@@ -41,6 +41,7 @@ const Flashcards = (function() {
     let isFlipped = false;
     let sessionCards = [];
     let sessionStartTime = null;
+    let sessionActive = false;  // Track if user has started studying
     
     // ============================================
     // INICIALIZACIÓN
@@ -99,32 +100,45 @@ const Flashcards = (function() {
     function applyFilters() {
         const statusFilter = document.getElementById('flashcard-filter')?.value || 'all';
         const categoryFilter = document.getElementById('flashcard-category')?.value || 'all';
-        
+
         const cardStatuses = ProgressManager.getAllFlashcards();
-        
+
         filteredCards = FLASHCARDS_DATA.filter(card => {
-            const status = cardStatuses.find(s => s.id === card.id)?.status || 'new';
-            
-            // Filtro por estado
-            if (statusFilter !== 'all' && status !== statusFilter) {
-                return false;
-            }
-            
-            // Filtro por categoría
+            const cardStatus = cardStatuses.find(s => s.id === card.id);
+            const status = cardStatus?.status || 'new';
+
+            // Filtro por categoría (applies to all modes)
             if (categoryFilter !== 'all' && card.category !== categoryFilter) {
                 return false;
             }
-            
-            // Verificar si está disponible para revisión hoy
-            const cardStatus = cardStatuses.find(s => s.id === card.id);
-            if (cardStatus?.nextReview) {
-                const nextReview = new Date(cardStatus.nextReview);
-                if (nextReview > new Date()) {
+
+            // Handle different filter modes
+            if (statusFilter === 'all') {
+                // Show ALL cards regardless of status or schedule
+                return true;
+            } else if (statusFilter === 'due') {
+                // Show only cards due for review today (spaced repetition)
+                if (cardStatus?.nextReview) {
+                    const nextReview = new Date(cardStatus.nextReview);
+                    if (nextReview > new Date()) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                // Filter by specific status (new, learning, review, mastered)
+                if (status !== statusFilter) {
                     return false;
                 }
+                // Also apply spaced repetition for status filters
+                if (cardStatus?.nextReview) {
+                    const nextReview = new Date(cardStatus.nextReview);
+                    if (nextReview > new Date()) {
+                        return false;
+                    }
+                }
+                return true;
             }
-            
-            return true;
         });
     }
     
@@ -262,9 +276,12 @@ const Flashcards = (function() {
         // Ocultar estado vacío
         const emptyState = document.getElementById('flashcards-empty');
         if (emptyState) emptyState.classList.add('hidden');
-        
-        // Puntos por ver
-        Gamification.pointsForViewingFlashcard();
+
+        // Only add points if session is active (user has started studying)
+        // This prevents points from being added on initial page load
+        if (sessionActive) {
+            Gamification.pointsForViewingFlashcard();
+        }
     }
     
     function getStatusBadge(status) {
@@ -283,13 +300,20 @@ const Flashcards = (function() {
     
     function flip() {
         if (isFlipped) return;
-        
+
         const card = document.getElementById('flashcard');
         if (!card) return;
-        
+
         card.classList.add('flipped');
         isFlipped = true;
-        
+
+        // Mark session as active on first flip - this enables point earning
+        if (!sessionActive) {
+            sessionActive = true;
+            // Award points for viewing the first card now that session is active
+            Gamification.pointsForViewingFlashcard();
+        }
+
         // Sonido
         AudioManager.flip();
         
@@ -488,6 +512,7 @@ const Flashcards = (function() {
     
     function resetSession() {
         sessionCards = [];
+        sessionActive = false;  // Reset so points aren't added until user starts studying
         loadSession();
     }
     
@@ -516,11 +541,26 @@ const Flashcards = (function() {
             progress.style.width = `${percent}%`;
         }
         
-        // Actualizar dashboard
+        // Actualizar dashboard - show today's studied cards
         const dashCards = document.getElementById('dash-cards');
         if (dashCards) {
             const stats = ProgressManager.getStats();
-            dashCards.textContent = `${stats.masteredCards}/${stats.totalCards}`;
+            dashCards.textContent = `${stats.todayCards || 0}`;
+        }
+
+        // Update sidebar progress bar
+        updateSidebarProgress();
+    }
+
+    function updateSidebarProgress() {
+        const stats = ProgressManager.getStats();
+        const progressBar = document.getElementById('progress-bar');
+        const totalProgress = document.getElementById('total-progress');
+
+        if (progressBar && totalProgress) {
+            const progress = stats.progressPercent || 0;
+            progressBar.style.width = `${progress}%`;
+            totalProgress.textContent = `${progress}%`;
         }
     }
     
@@ -607,15 +647,7 @@ const Flashcards = (function() {
     };
 })();
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    // Esperar a que otros módulos estén listos
-    setTimeout(() => {
-        if (typeof ProgressManager !== 'undefined') {
-            Flashcards.init();
-        }
-    }, 200);
-});
+// NOTE: Initialization is handled by App.init() - do not add DOMContentLoaded here
 
 // Exportar globalmente
 window.Flashcards = Flashcards;
