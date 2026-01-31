@@ -1,6 +1,6 @@
 /**
  * ============================================
- * SERVICE WORKER - Simo Pro PWA
+ * SERVICE WORKER - Bursuc Pro PWA
  * Psicología del Desarrollo II
  * ============================================
  * 
@@ -8,24 +8,25 @@
  * Permite funcionamiento offline completo
  */
 
-const CACHE_NAME = 'simopro-v1';
-const STATIC_CACHE = 'simopro-static-v1';
-const DYNAMIC_CACHE = 'simopro-dynamic-v1';
+const CACHE_NAME = 'bursucpro-v2';
+const STATIC_CACHE = 'bursucpro-static-v2';
+const DYNAMIC_CACHE = 'bursucpro-dynamic-v2';
 
 // Recursos estáticos para precachear
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/css/styles.css',
-    '/js/data.js',
-    '/js/audio.js',
-    '/js/progress.js',
-    '/js/gamification.js',
-    '/js/flashcards.js',
-    '/js/pomodoro.js',
-    '/js/ui.js',
-    '/js/app.js',
-    '/manifest.json',
+    './',
+    'index.html',
+    'css/styles.css',
+    'js/data.js',
+    'js/content.js',
+    'js/audio.js',
+    'js/progress.js',
+    'js/gamification.js',
+    'js/flashcards.js',
+    'js/pomodoro.js',
+    'js/ui.js',
+    'js/app.js',
+    'manifest.json',
     // Tailwind CDN (se cacheará dinámicamente)
     'https://cdn.tailwindcss.com',
     // Google Fonts
@@ -251,7 +252,7 @@ self.addEventListener('push', (event) => {
         
         event.waitUntil(
             self.registration.showNotification(
-                data.title || 'Simo Pro',
+                data.title || 'Bursuc Pro',
                 options
             )
         );

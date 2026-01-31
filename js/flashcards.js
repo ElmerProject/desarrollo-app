@@ -1,7 +1,7 @@
 /**
  * ============================================
  * FLASHCARDS.JS - Sistema de flashcards interactivas
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Incluye:
@@ -528,7 +528,7 @@ const Flashcards = (function() {
         const statusFilter = document.getElementById('flashcard-filter')?.value;
         const categoryFilter = document.getElementById('flashcard-category')?.value;
         
-        localStorage.setItem('simopro_flashcard_filters', JSON.stringify({
+        localStorage.setItem('bursucpro_flashcard_filters', JSON.stringify({
             status: statusFilter,
             category: categoryFilter
         }));
@@ -536,7 +536,7 @@ const Flashcards = (function() {
     
     function loadFilters() {
         try {
-            const saved = localStorage.getItem('simopro_flashcard_filters');
+            const saved = localStorage.getItem('bursucpro_flashcard_filters');
             if (saved) {
                 const filters = JSON.parse(saved);
                 const statusSelect = document.getElementById('flashcard-filter');
@@ -619,3 +619,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exportar globalmente
 window.Flashcards = Flashcards;
+window.flashcards = Flashcards;

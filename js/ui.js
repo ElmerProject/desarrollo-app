@@ -1,7 +1,7 @@
 /**
  * ============================================
  * UI.JS - Utilidades de interfaz de usuario
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Gestiona: navegación, toasts, modales, utilidades visuales
@@ -41,7 +41,7 @@ const UI = (function() {
         }
         
         // Restaurar título
-        document.title = 'Psicología del Desarrollo II - Simo Pro';
+        document.title = 'Psicología del Desarrollo II - Bursuc Pro';
     }
     
     function updateActiveNav(sectionId) {
@@ -516,3 +516,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exportar globalmente
 window.UI = UI;
+window.ui = UI;

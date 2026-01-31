@@ -1,7 +1,7 @@
 /**
  * ============================================
  * AUDIO.JS - Sistema de sonidos con Web Audio API
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Genera sonidos sintéticos sin necesidad de archivos externos.
@@ -286,7 +286,7 @@ const AudioManager = (function() {
     
     function savePreferences() {
         try {
-            localStorage.setItem('simopro_audio_prefs', JSON.stringify({
+            localStorage.setItem('bursucpro_audio_prefs', JSON.stringify({
                 enabled: config.enabled,
                 volume: config.volume
             }));
@@ -297,7 +297,7 @@ const AudioManager = (function() {
     
     function loadPreferences() {
         try {
-            const saved = localStorage.getItem('simopro_audio_prefs');
+            const saved = localStorage.getItem('bursucpro_audio_prefs');
             if (saved) {
                 const prefs = JSON.parse(saved);
                 config.enabled = prefs.enabled !== undefined ? prefs.enabled : true;

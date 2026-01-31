@@ -1,7 +1,7 @@
 /**
  * ============================================
  * GAMIFICATION.JS - Sistema de gamificación completo
- * Psicología del Desarrollo II - Simo Pro
+ * Psicología del Desarrollo II - Bursuc Pro
  * ============================================
  * 
  * Gestiona: puntos, niveles, logros, celebraciones y streaks.
@@ -467,7 +467,7 @@ const Gamification = (function() {
     
     function saveSessionState() {
         try {
-            sessionStorage.setItem('simopro_session', JSON.stringify({
+            sessionStorage.setItem('bursucpro_session', JSON.stringify({
                 currentStreak,
                 sessionStats
             }));
@@ -478,7 +478,7 @@ const Gamification = (function() {
     
     function loadSessionState() {
         try {
-            const saved = sessionStorage.getItem('simopro_session');
+            const saved = sessionStorage.getItem('bursucpro_session');
             if (saved) {
                 const state = JSON.parse(saved);
                 currentStreak = state.currentStreak || 0;
@@ -549,3 +549,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exportar globalmente
 window.Gamification = Gamification;
+window.gamification = Gamification;
