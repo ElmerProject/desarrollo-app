@@ -1,0 +1,112 @@
+{
+  "name": "Simo Pro - Psicología del Desarrollo II",
+  "short_name": "Simo Pro",
+  "description": "App educativa gamificada para preparar exámenes de Psicología del Desarrollo II con flashcards, pomodoro y sistema de logros",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color":="#6366f1",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard de progreso"
+    },
+    {
+      "src": "assets/screenshots/flashcards.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Flashcards interactivas"
+    },
+    {
+      "src": "assets/screenshots/mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vista móvil"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Flashcards",
+      "short_name": "Tarjetas",
+      "description": "Continuar estudiando flashcards",
+      "url": "/#flashcards",
+      "icons": [{ "src": "assets/icons/flashcards.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Pomodoro",
+      "short_name": "Timer",
+      "description": "Iniciar sesión Pomodoro",
+      "url": "/#pomodoro",
+      "icons": [{ "src": "assets/icons/pomodoro.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Logros",
+      "short_name": "Logros",
+      "description": "Ver logros desbloqueados",
+      "url": "/#logros",
+      "icons": [{ "src": "assets/icons/achievements.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
