@@ -4,7 +4,7 @@
   "description": "App educativa gamificada para preparar exámenes de Psicología del Desarrollo II con flashcards, pomodoro y sistema de logros",
   "start_url": "/",
   "display": "standalone",
-  "background_color":="#6366f1",
+  "background_color": "#6366f1",
   "theme_color": "#6366f1",
   "orientation": "portrait-primary",
   "scope": "/",

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#818cf8"/>
+      <stop offset="100%" style="stop-color:#6366f1"/>
+    </linearGradient>
+    <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5f5f5"/>
+      <stop offset="100%" style="stop-color:#e5e5e5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <circle cx="256" cy="256" r="256" fill="url(#bgGrad)"/>
+
+  <!-- Ears -->
+  <ellipse cx="140" cy="120" rx="45" ry="50" fill="#374151"/>
+  <ellipse cx="140" cy="120" rx="28" ry="32" fill="#fce7f3"/>
+  <ellipse cx="372" cy="120" rx="45" ry="50" fill="#374151"/>
+  <ellipse cx="372" cy="120" rx="28" ry="32" fill="#fce7f3"/>
+
+  <!-- Main face (white/gray) -->
+  <ellipse cx="256" cy="280" rx="160" ry="145" fill="url(#faceGrad)"/>
+
+  <!-- Black stripes on face -->
+  <path d="M96 200 Q120 280, 130 380 Q140 300, 160 240 Q180 180, 200 160 Q160 160, 120 170 Q96 180, 96 200" fill="#374151"/>
+  <path d="M416 200 Q392 280, 382 380 Q372 300, 352 240 Q332 180, 312 160 Q352 160, 392 170 Q416 180, 416 200" fill="#374151"/>
+
+  <!-- White stripe down middle -->
+  <path d="M256 100 Q240 140, 235 180 Q230 220, 240 260 Q250 300, 256 340 Q262 300, 272 260 Q282 220, 277 180 Q272 140, 256 100" fill="#ffffff"/>
+
+  <!-- Eyes (cute big eyes) -->
+  <ellipse cx="190" cy="250" rx="35" ry="40" fill="#ffffff"/>
+  <ellipse cx="322" cy="250" rx="35" ry="40" fill="#ffffff"/>
+  <circle cx="195" cy="255" r="22" fill="#374151"/>
+  <circle cx="317" cy="255" r="22" fill="#374151"/>
+  <circle cx="200" cy="248" r="8" fill="#ffffff"/>
+  <circle cx="322" cy="248" r="8" fill="#ffffff"/>
+
+  <!-- Cute pink cheeks -->
+  <ellipse cx="130" cy="310" rx="25" ry="18" fill="#fda4af" opacity="0.6"/>
+  <ellipse cx="382" cy="310" rx="25" ry="18" fill="#fda4af" opacity="0.6"/>
+
+  <!-- Nose -->
+  <ellipse cx="256" cy="340" rx="28" ry="22" fill="#374151"/>
+  <ellipse cx="256" cy="335" rx="10" ry="6" fill="#6b7280"/>
+
+  <!-- Cute smile -->
+  <path d="M220 375 Q256 400, 292 375" stroke="#374151" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- Small graduation cap hint (for education theme) -->
+  <rect x="220" y="75" width="72" height="8" fill="#374151" rx="2"/>
+  <polygon points="256,45 290,75 222,75" fill="#374151"/>
+  <circle cx="256" cy="45" r="6" fill="#fbbf24"/>
+  <line x1="256" y1="45" x2="280" y2="35" stroke="#fbbf24" stroke-width="3"/>
+  <circle cx="283" cy="32" r="8" fill="#fbbf24"/>
+</svg>
