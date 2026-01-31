@@ -41,6 +41,7 @@ const Flashcards = (function() {
     let isFlipped = false;
     let sessionCards = [];
     let sessionStartTime = null;
+    let sessionActive = false;  // Track if user has started studying
     
     // ============================================
     // INICIALIZACIÓN
@@ -262,9 +263,12 @@ const Flashcards = (function() {
         // Ocultar estado vacío
         const emptyState = document.getElementById('flashcards-empty');
         if (emptyState) emptyState.classList.add('hidden');
-        
-        // Puntos por ver
-        Gamification.pointsForViewingFlashcard();
+
+        // Only add points if session is active (user has started studying)
+        // This prevents points from being added on initial page load
+        if (sessionActive) {
+            Gamification.pointsForViewingFlashcard();
+        }
     }
     
     function getStatusBadge(status) {
@@ -283,13 +287,20 @@ const Flashcards = (function() {
     
     function flip() {
         if (isFlipped) return;
-        
+
         const card = document.getElementById('flashcard');
         if (!card) return;
-        
+
         card.classList.add('flipped');
         isFlipped = true;
-        
+
+        // Mark session as active on first flip - this enables point earning
+        if (!sessionActive) {
+            sessionActive = true;
+            // Award points for viewing the first card now that session is active
+            Gamification.pointsForViewingFlashcard();
+        }
+
         // Sonido
         AudioManager.flip();
         
@@ -488,6 +499,7 @@ const Flashcards = (function() {
     
     function resetSession() {
         sessionCards = [];
+        sessionActive = false;  // Reset so points aren't added until user starts studying
         loadSession();
     }
     
@@ -607,15 +619,7 @@ const Flashcards = (function() {
     };
 })();
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    // Esperar a que otros módulos estén listos
-    setTimeout(() => {
-        if (typeof ProgressManager !== 'undefined') {
-            Flashcards.init();
-        }
-    }, 200);
-});
+// NOTE: Initialization is handled by App.init() - do not add DOMContentLoaded here
 
 // Exportar globalmente
 window.Flashcards = Flashcards;

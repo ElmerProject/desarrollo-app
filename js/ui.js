@@ -509,10 +509,7 @@ const UI = (function() {
     };
 })();
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    UI.init();
-});
+// NOTE: Initialization is handled by App.init() - do not add DOMContentLoaded here
 
 // Exportar globalmente
 window.UI = UI;

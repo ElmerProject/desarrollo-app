@@ -41,20 +41,28 @@ const Gamification = (function() {
         correctAnswers: 0,
         startTime: null
     };
+    let initialized = false;  // Prevent double initialization
     
     // ============================================
     // INICIALIZACIÓN
     // ============================================
     
     function init() {
+        // Prevent double initialization
+        if (initialized) {
+            console.log('🎮 Gamificación ya inicializada, saltando...');
+            return;
+        }
+        initialized = true;
+
         sessionStats.startTime = Date.now();
         loadSessionState();
-        
+
         // Escuchar eventos
         window.addEventListener('flashcardRated', handleFlashcardRated);
         window.addEventListener('pomodoroCompleted', handlePomodoroCompleted);
         window.addEventListener('levelUp', handleLevelUp);
-        
+
         console.log('🎮 Gamificación inicializada');
     }
     
@@ -228,20 +236,21 @@ const Gamification = (function() {
     // ============================================
     
     function checkAchievements() {
-        if (typeof ACHIEVEMENTS_DATA === 'undefined') return;
-        
+        if (typeof ACHIEVEMENTS_DATA === 'undefined') return [];
+        if (typeof ProgressManager === 'undefined') return [];
+
         const stats = ProgressManager.getStats();
         const newlyUnlocked = [];
-        
+
         ACHIEVEMENTS_DATA.forEach(achievement => {
-            if (!ProgressManager.isAchievementUnlocked(achievement.id)) {
-                if (achievement.condition(stats)) {
-                    unlockAchievement(achievement);
-                    newlyUnlocked.push(achievement);
-                }
+            // Double-check that achievement isn't already unlocked
+            const alreadyUnlocked = ProgressManager.isAchievementUnlocked(achievement.id);
+            if (!alreadyUnlocked && achievement.condition(stats)) {
+                unlockAchievement(achievement);
+                newlyUnlocked.push(achievement);
             }
         });
-        
+
         return newlyUnlocked;
     }
     
@@ -537,15 +546,7 @@ const Gamification = (function() {
     };
 })();
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    // Esperar a que ProgressManager esté listo
-    if (typeof ProgressManager !== 'undefined') {
-        Gamification.init();
-    } else {
-        setTimeout(() => Gamification.init(), 100);
-    }
-});
+// NOTE: Initialization is handled by App.init() - do not add DOMContentLoaded here
 
 // Exportar globalmente
 window.Gamification = Gamification;
