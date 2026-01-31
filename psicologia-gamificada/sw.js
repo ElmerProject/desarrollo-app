@@ -14,19 +14,19 @@ const DYNAMIC_CACHE = 'simopro-dynamic-v1';
 
 // Recursos estáticos para precachear
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/css/styles.css',
-    '/js/data.js',
-    '/js/content.js',
-    '/js/audio.js',
-    '/js/progress.js',
-    '/js/gamification.js',
-    '/js/flashcards.js',
-    '/js/pomodoro.js',
-    '/js/ui.js',
-    '/js/app.js',
-    '/manifest.json',
+    './',
+    'index.html',
+    'css/styles.css',
+    'js/data.js',
+    'js/content.js',
+    'js/audio.js',
+    'js/progress.js',
+    'js/gamification.js',
+    'js/flashcards.js',
+    'js/pomodoro.js',
+    'js/ui.js',
+    'js/app.js',
+    'manifest.json',
     // Tailwind CDN (se cacheará dinámicamente)
     'https://cdn.tailwindcss.com',
     // Google Fonts
