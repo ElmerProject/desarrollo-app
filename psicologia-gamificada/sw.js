@@ -8,9 +8,9 @@
  * Permite funcionamiento offline completo
  */
 
-const CACHE_NAME = 'bursucpro-v1';
-const STATIC_CACHE = 'bursucpro-static-v1';
-const DYNAMIC_CACHE = 'bursucpro-dynamic-v1';
+const CACHE_NAME = 'bursucpro-v2';
+const STATIC_CACHE = 'bursucpro-static-v2';
+const DYNAMIC_CACHE = 'bursucpro-dynamic-v2';
 
 // Recursos estáticos para precachear
 const STATIC_ASSETS = [
