@@ -619,3 +619,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exportar globalmente
 window.Flashcards = Flashcards;
+window.flashcards = Flashcards;

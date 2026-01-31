@@ -18,6 +18,7 @@ const STATIC_ASSETS = [
     '/index.html',
     '/css/styles.css',
     '/js/data.js',
+    '/js/content.js',
     '/js/audio.js',
     '/js/progress.js',
     '/js/gamification.js',

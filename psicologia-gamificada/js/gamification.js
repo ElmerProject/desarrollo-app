@@ -549,3 +549,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exportar globalmente
 window.Gamification = Gamification;
+window.gamification = Gamification;

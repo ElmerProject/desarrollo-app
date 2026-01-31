@@ -439,3 +439,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exportar globalmente
 window.Pomodoro = Pomodoro;
+window.pomodoro = Pomodoro;

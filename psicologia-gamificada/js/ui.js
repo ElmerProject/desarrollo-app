@@ -516,3 +516,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exportar globalmente
 window.UI = UI;
+window.ui = UI;
